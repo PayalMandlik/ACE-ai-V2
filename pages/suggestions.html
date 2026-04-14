@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suggestions | ACE AI</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-mark">ACE</span>
+        <div>
+          <p class="brand-name">ACE AI</p>
+          <p class="brand-tag">Career Execution Agent</p>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="resume-analyzer.html" class="nav-link">Resume Intelligence</a>
+        <a href="skill-gap.html" class="nav-link">Skill Gap Analyzer</a>
+        <a href="validation.html" class="nav-link">Validation</a>
+        <a href="roadmap.html" class="nav-link">Roadmap</a>
+        <a href="assessment.html" class="nav-link">Assessment</a>
+        <a href="suggestions.html" class="nav-link active">Suggestions</a>
+      </nav>
+    </aside>
+
+    <div class="main-content">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="menu-toggle" aria-label="Open navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <h1 class="page-title">Suggestions</h1>
+        </div>
+        <div class="topbar-actions">
+          <button class="btn btn-primary" id="refresh-suggestions">Refresh</button>
+        </div>
+      </header>
+
+      <section class="suggestions-hero card">
+        <div>
+          <p class="eyebrow">AI recommendations</p>
+          <h2>Focus on the actions that move your career forward.</h2>
+          <p class="text-muted">ACE AI delivers focused areas, practical advice, and what to avoid next.</p>
+          <p class="typing-effect" data-typing="Analyzing your career profile and generating the most valuable suggestions for your next steps..."></p>
+        </div>
+      </section>
+
+      <section class="suggestions-grid grid grid-3">
+        <article class="card suggestion-panel">
+          <div class="panel-heading">
+            <h3>Focus areas</h3>
+            <span class="pill pill-blue">Top</span>
+          </div>
+          <div id="focus-areas" class="suggestion-list"></div>
+        </article>
+
+        <article class="card suggestion-panel">
+          <div class="panel-heading">
+            <h3>Advice</h3>
+            <span class="pill pill-green">Action</span>
+          </div>
+          <div id="advice-list" class="suggestion-list"></div>
+        </article>
+
+        <article class="card suggestion-panel">
+          <div class="panel-heading">
+            <h3>Avoid list</h3>
+            <span class="pill pill-red">Avoid</span>
+          </div>
+          <div id="avoid-list" class="suggestion-list"></div>
+        </article>
+      </section>
+    </div>
+  </div>
+
+  <script src="../assets/js/app.js" defer></script>
+  <script src="../assets/js/api.js" defer></script>
+  <script src="../assets/js/suggestions.js" defer></script>
+</body>
+</html>

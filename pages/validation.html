@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GitHub Validation | ACE AI</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-mark">ACE</span>
+        <div>
+          <p class="brand-name">ACE AI</p>
+          <p class="brand-tag">Career Execution Agent</p>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="resume-analyzer.html" class="nav-link">Resume Intelligence</a>
+        <a href="skill-gap.html" class="nav-link">Skill Gap Analyzer</a>
+        <a href="validation.html" class="nav-link active">Validation</a>
+        <a href="roadmap.html" class="nav-link">Roadmap</a>
+        <a href="assessment.html" class="nav-link">Assessment</a>
+        <a href="suggestions.html" class="nav-link">Suggestions</a>
+      </nav>
+    </aside>
+
+    <div class="main-content">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="menu-toggle" aria-label="Open navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <h1 class="page-title">GitHub Validation</h1>
+        </div>
+        <div class="topbar-actions">
+          <button class="btn btn-outline" id="clear-validation">Clear</button>
+          <button class="btn btn-primary" id="validate-github">Validate repo</button>
+        </div>
+      </header>
+
+      <section class="validation-hero card">
+        <div>
+          <p class="eyebrow">GitHub project validation</p>
+          <h2>Validate your open-source portfolio and detect career-relevant skills.</h2>
+          <p class="text-muted">Submit a GitHub repository link to evaluate the project summary, inferred skills, and validation score.</p>
+        </div>
+      </section>
+
+      <section class="validation-grid grid grid-2">
+        <article class="card validation-input-pane">
+          <h3>Repository link</h3>
+          <div class="form-group">
+            <label for="github-repo">GitHub repo URL</label>
+            <input id="github-repo" type="url" placeholder="https://github.com/username/repo" />
+          </div>
+
+          <div class="hint-banner">
+            <p>Tip: use a public repository for the best validation experience.</p>
+          </div>
+        </article>
+
+        <article class="card validation-results" id="validation-results">
+          <div class="result-track">
+            <div class="score-header">
+              <div>
+                <p class="eyebrow">Validation score</p>
+                <h3 id="project-score">--%</h3>
+              </div>
+              <div class="score-badge" id="score-badge">Pending</div>
+            </div>
+
+            <div class="score-bar" aria-hidden="true">
+              <div class="score-fill" id="score-fill"></div>
+            </div>
+          </div>
+
+          <div class="project-summary-panel card-panel">
+            <div class="panel-heading">
+              <h4>Project summary</h4>
+            </div>
+            <p class="text-muted" id="project-summary">Submit a repository to view the summary and commit highlights.</p>
+          </div>
+
+          <div class="validation-chip-grid">
+            <div class="chip-panel">
+              <h4>Skills detected</h4>
+              <div id="project-skills" class="skill-list"></div>
+            </div>
+            <div class="chip-panel">
+              <h4>Weaknesses</h4>
+              <div id="project-weaknesses" class="skill-list"></div>
+            </div>
+          </div>
+        </article>
+      </section>
+    </div>
+  </div>
+
+  <script src="../assets/js/app.js" defer></script>
+  <script src="../assets/js/api.js" defer></script>
+  <script src="../assets/js/validation.js" defer></script>
+</body>
+</html>

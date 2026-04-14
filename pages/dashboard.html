@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard | ACE AI</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-mark">ACE</span>
+        <div>
+          <p class="brand-name">ACE AI</p>
+          <p class="brand-tag">Career Execution Agent</p>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="dashboard.html" class="nav-link active">Dashboard</a>
+        <a href="resume-analyzer.html" class="nav-link">Resume Intelligence</a>
+        <a href="skill-gap.html" class="nav-link">Skill Gap Analyzer</a>
+        <a href="validation.html" class="nav-link">Validation</a>
+        <a href="roadmap.html" class="nav-link">Roadmap</a>
+        <a href="assessment.html" class="nav-link">Assessment</a>
+        <a href="suggestions.html" class="nav-link">Suggestions</a>
+      </nav>
+    </aside>
+
+    <div class="main-content">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="menu-toggle" aria-label="Open navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <h1 class="page-title">Dashboard</h1>
+        </div>
+        <div class="topbar-actions">
+          <button class="btn btn-outline" id="refresh-dashboard">Refresh</button>
+          <button class="btn btn-primary" id="logout-button">Sign Out</button>
+        </div>
+      </header>
+
+      <section class="dashboard-hero card">
+        <div class="hero-copy">
+          <p class="eyebrow">Fast career intelligence</p>
+          <h2>Welcome back, <span id="profile-name">Career strategist</span>.</h2>
+          <p class="text-muted">Your mission dashboard is ready with fresh career insights, skill assessment, and roadmap recommendations.</p>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-pill stat-blue">
+            <span class="stat-label">XP</span>
+            <strong id="profile-xp">0</strong>
+          </div>
+          <div class="stat-pill stat-green">
+            <span class="stat-label">Level</span>
+            <strong id="profile-level">1</strong>
+          </div>
+          <div class="stat-pill stat-yellow">
+            <span class="stat-label">Streak</span>
+            <strong id="profile-streak">0 days</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid grid-3 action-grid">
+        <a href="resume-analyzer.html" class="action-card card">
+          <div class="action-icon action-icon-blue">R</div>
+          <div>
+            <h3>Resume Intelligence</h3>
+            <p>Analyze your resume and improve your job-fit score.</p>
+          </div>
+        </a>
+
+        <a href="skill-gap.html" class="action-card card">
+          <div class="action-icon action-icon-green">S</div>
+          <div>
+            <h3>Skill Gap Analyzer</h3>
+            <p>Compare your skills to target roles and close gaps fast.</p>
+          </div>
+        </a>
+
+        <a href="validation.html" class="action-card card">
+          <div class="action-icon action-icon-red">V</div>
+          <div>
+            <h3>Validation</h3>
+            <p>Confirm certifications, credentials, and achievements.</p>
+          </div>
+        </a>
+
+        <a href="roadmap.html" class="action-card card">
+          <div class="action-icon action-icon-yellow">R</div>
+          <div>
+            <h3>Roadmap</h3>
+            <p>Build a milestone-driven career plan for the next 90 days.</p>
+          </div>
+        </a>
+
+        <a href="assessment.html" class="action-card card">
+          <div class="action-icon action-icon-blue">A</div>
+          <div>
+            <h3>Assessment</h3>
+            <p>Take a skill assessment and get insights on readiness.</p>
+          </div>
+        </a>
+
+        <a href="suggestions.html" class="action-card card">
+          <div class="action-icon action-icon-green">S</div>
+          <div>
+            <h3>Suggestions</h3>
+            <p>Receive tailored role matches and learning actions.</p>
+          </div>
+        </a>
+      </section>
+
+      <section class="grid grid-2 dashboard-panels">
+        <article class="card metric-panel">
+          <div class="panel-header">
+            <h3>Career pulse</h3>
+            <span id="dashboard-status" class="status-pill status-blue">Live</span>
+          </div>
+          <div class="panel-grid" id="dashboard-metrics">
+            <div class="metric-block">
+              <p class="metric-label">Resume health</p>
+              <strong id="resume-score">--</strong>
+            </div>
+            <div class="metric-block">
+              <p class="metric-label">Skill readiness</p>
+              <strong id="skill-readiness">--</strong>
+            </div>
+            <div class="metric-block">
+              <p class="metric-label">Validation status</p>
+              <strong id="validation-status">--</strong>
+            </div>
+            <div class="metric-block">
+              <p class="metric-label">Next milestone</p>
+              <strong id="next-milestone">--</strong>
+            </div>
+          </div>
+        </article>
+
+        <article class="card activity-panel">
+          <div class="panel-header">
+            <h3>Activity feed</h3>
+            <span class="status-pill status-neutral">Latest</span>
+          </div>
+          <div class="activity-list" id="activity-feed">
+            <div class="activity-item">
+              <div>
+                <p class="activity-title">Loading recent activity</p>
+                <p class="text-muted">Refresh to see new events.</p>
+              </div>
+              <span class="timestamp">--</span>
+            </div>
+          </div>
+        </article>
+      </section>
+    </div>
+  </div>
+
+  <script src="../assets/js/app.js" defer></script>
+  <script src="../assets/js/api.js" defer></script>
+  <script src="../assets/js/dashboard.js" defer></script>
+</body>
+</html>

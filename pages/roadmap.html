@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roadmap | ACE AI</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-mark">ACE</span>
+        <div>
+          <p class="brand-name">ACE AI</p>
+          <p class="brand-tag">Career Execution Agent</p>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="resume-analyzer.html" class="nav-link">Resume Intelligence</a>
+        <a href="skill-gap.html" class="nav-link">Skill Gap Analyzer</a>
+        <a href="validation.html" class="nav-link">Validation</a>
+        <a href="roadmap.html" class="nav-link active">Roadmap</a>
+        <a href="assessment.html" class="nav-link">Assessment</a>
+        <a href="suggestions.html" class="nav-link">Suggestions</a>
+      </nav>
+    </aside>
+
+    <div class="main-content">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="menu-toggle" aria-label="Open navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <h1 class="page-title">Roadmap</h1>
+        </div>
+        <div class="topbar-actions">
+          <button class="btn btn-outline" id="reset-roadmap">Reset</button>
+          <button class="btn btn-primary" id="create-roadmap">Create plan</button>
+        </div>
+      </header>
+
+      <section class="roadmap-hero card">
+        <div>
+          <p class="eyebrow">Career timeline</p>
+          <h2>Build a skill-based roadmap with daily tasks and milestones.</h2>
+          <p class="text-muted">Enter target skills and duration to generate a focused plan with expandable daily tasks.</p>
+        </div>
+      </section>
+
+      <section class="roadmap-grid grid grid-2">
+        <article class="card roadmap-input-pane">
+          <h3>Design your target plan</h3>
+          <div class="form-group">
+            <label for="roadmap-skill">Target skill</label>
+            <input id="roadmap-skill" type="text" placeholder="e.g. Product strategy" />
+          </div>
+          <div class="form-group">
+            <label for="roadmap-duration">Duration (days)</label>
+            <input id="roadmap-duration" type="number" min="7" max="90" placeholder="30" />
+          </div>
+          <div class="hint-banner">
+            <p>Tip: choose a time horizon between 14 and 90 days for the best guidance.</p>
+          </div>
+        </article>
+
+        <article class="card roadmap-timeline" id="roadmap-timeline">
+          <div class="timeline-header">
+            <div>
+              <p class="eyebrow">Roadmap overview</p>
+              <h3 id="timeline-title">No roadmap created yet</h3>
+            </div>
+            <span class="pill pill-blue" id="timeline-range">0 days</span>
+          </div>
+
+          <div class="timeline-list" id="timeline-list">
+            <div class="timeline-item empty-state">
+              <p class="text-muted">Create a roadmap to see day-wise tasks and milestones.</p>
+            </div>
+          </div>
+        </article>
+      </section>
+    </div>
+  </div>
+
+  <script src="../assets/js/app.js" defer></script>
+  <script src="../assets/js/api.js" defer></script>
+  <script src="../assets/js/roadmap.js" defer></script>
+</body>
+</html>

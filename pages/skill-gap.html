@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skill Gap | ACE AI</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-mark">ACE</span>
+        <div>
+          <p class="brand-name">ACE AI</p>
+          <p class="brand-tag">Career Execution Agent</p>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="resume-analyzer.html" class="nav-link">Resume Intelligence</a>
+        <a href="skill-gap.html" class="nav-link active">Skill Gap Analyzer</a>
+        <a href="validation.html" class="nav-link">Validation</a>
+        <a href="roadmap.html" class="nav-link">Roadmap</a>
+        <a href="assessment.html" class="nav-link">Assessment</a>
+        <a href="suggestions.html" class="nav-link">Suggestions</a>
+      </nav>
+    </aside>
+
+    <div class="main-content">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="menu-toggle" aria-label="Open navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <h1 class="page-title">Skill Gap Analyzer</h1>
+        </div>
+        <div class="topbar-actions">
+          <button class="btn btn-outline" id="clear-role">Clear</button>
+          <button class="btn btn-primary" id="analyze-gap">Analyze role</button>
+        </div>
+      </header>
+
+      <section class="gap-hero card">
+        <div>
+          <p class="eyebrow">Target role analysis</p>
+          <h2>Pin your target role and discover the skills that matter most.</h2>
+          <p class="text-muted">ACE AI compares your current profile against the role and surfaces matched, missing, and priority skills.</p>
+        </div>
+      </section>
+
+      <section class="gap-grid grid grid-2">
+        <article class="card role-pane">
+          <h3>Target role</h3>
+          <div class="form-group">
+            <label for="target-role">Job title</label>
+            <input id="target-role" type="text" placeholder="e.g. Senior Product Manager" />
+          </div>
+
+          <div class="tag-input-group">
+            <label>Preferred skills</label>
+            <div class="tag-input" id="skill-tags"></div>
+            <p class="text-muted">Type a skill and hit Enter to add tags.</p>
+          </div>
+
+          <div class="hint-banner">
+            <p>Tip: include one or two core skills to tune recommendations.</p>
+          </div>
+        </article>
+
+        <article class="card gap-results" id="gap-results">
+          <div class="gap-summary">
+            <div class="summary-card summary-card-blue">
+              <p class="summary-label">Matched skills</p>
+              <strong id="matched-count">0</strong>
+            </div>
+            <div class="summary-card summary-card-red">
+              <p class="summary-label">Missing skills</p>
+              <strong id="missing-count">0</strong>
+            </div>
+            <div class="summary-card summary-card-yellow">
+              <p class="summary-label">Priority skills</p>
+              <strong id="priority-count">0</strong>
+            </div>
+          </div>
+
+          <div class="results-grid gap-result-grid">
+            <div class="result-panel">
+              <div class="panel-heading">
+                <h4>Matched skills</h4>
+                <span class="pill pill-blue">Good</span>
+              </div>
+              <div class="skill-list" id="matched-skills"></div>
+            </div>
+
+            <div class="result-panel">
+              <div class="panel-heading">
+                <h4>Missing skills</h4>
+                <span class="pill pill-red">Urgent</span>
+              </div>
+              <div class="skill-list" id="missing-skills"></div>
+            </div>
+
+            <div class="result-panel">
+              <div class="panel-heading">
+                <h4>Priority skills</h4>
+                <span class="pill pill-yellow">Focus</span>
+              </div>
+              <div class="skill-list" id="priority-skills"></div>
+            </div>
+          </div>
+        </article>
+      </section>
+    </div>
+  </div>
+
+  <script src="../assets/js/app.js" defer></script>
+  <script src="../assets/js/api.js" defer></script>
+  <script src="../assets/js/skillGap.js" defer></script>
+</body>
+</html>

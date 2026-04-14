@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | ACE AI</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <main class="auth-shell">
+    <section class="auth-card card">
+      <div class="auth-header">
+        <div>
+          <p class="eyebrow">Welcome back</p>
+          <h1>Sign in to ACE AI</h1>
+          <p class="text-muted">Access your career dashboard, analyze your resume, and review suggestions.</p>
+        </div>
+      </div>
+
+      <form id="login-form" class="auth-form" novalidate>
+        <div class="form-group">
+          <label for="login-email">Email</label>
+          <input id="login-email" name="email" type="email" placeholder="name@example.com" required />
+        </div>
+
+        <div class="form-group">
+          <label for="login-password">Password</label>
+          <input id="login-password" name="password" type="password" placeholder="Enter your password" minlength="8" required />
+        </div>
+
+        <div class="alert" id="login-alert" role="alert" aria-live="polite"></div>
+
+        <button type="submit" class="btn btn-primary btn-full">Log in</button>
+      </form>
+
+      <p class="auth-footer">
+        New to ACE AI? <a href="signup.html" class="text-link">Create an account</a>
+      </p>
+    </section>
+  </main>
+
+  <script src="assets/js/app.js" defer></script>
+  <script src="assets/js/api.js" defer></script>
+  <script src="assets/js/auth.js" defer></script>
+</body>
+</html>

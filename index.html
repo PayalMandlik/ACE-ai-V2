@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ACE AI — Autonomous Career Execution Agent</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-mark">ACE</span>
+        <div>
+          <p class="brand-name">ACE AI</p>
+          <p class="brand-tag">Career Execution Agent</p>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="pages/dashboard.html" class="nav-link active">Dashboard</a>
+        <a href="pages/resume-analyzer.html" class="nav-link">Resume Intelligence</a>
+        <a href="pages/skill-gap.html" class="nav-link">Skill Gap Analyzer</a>
+        <a href="pages/validation.html" class="nav-link">Validation</a>
+        <a href="pages/roadmap.html" class="nav-link">Roadmap</a>
+        <a href="pages/assessment.html" class="nav-link">Assessment</a>
+        <a href="pages/suggestions.html" class="nav-link">Suggestions</a>
+      </nav>
+    </aside>
+
+    <div class="main-content">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="menu-toggle" aria-label="Open navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <h1 class="page-title">Dashboard</h1>
+        </div>
+
+        <div class="topbar-actions">
+          <button class="btn btn-secondary">Upgrade</button>
+          <button class="btn btn-primary">Sign Out</button>
+        </div>
+      </header>
+
+      <section class="hero-card card">
+        <div>
+          <p class="eyebrow">Welcome back, Alex</p>
+          <h2>Shape your next career move with confidence.</h2>
+          <p class="text-muted">Track your resume health, skill gaps, validation status, and AI suggestions in one workspace.</p>
+        </div>
+        <div class="hero-badge">
+          <span>Fast insights</span>
+        </div>
+      </section>
+
+      <section class="grid grid-3">
+        <article class="metric-card card">
+          <p class="metric-label">Resume Score</p>
+          <h3>88%</h3>
+          <p class="text-muted">Optimized for target roles.</p>
+        </article>
+
+        <article class="metric-card card">
+          <p class="metric-label">Skill Gap</p>
+          <h3>4 areas</h3>
+          <p class="text-muted">Needs improvement in analytics and leadership.</p>
+        </article>
+
+        <article class="metric-card card">
+          <p class="metric-label">Roadmap Progress</p>
+          <h3>76%</h3>
+          <p class="text-muted">Milestones set for the next 3 months.</p>
+        </article>
+      </section>
+
+      <section class="grid grid-2 card-group">
+        <article class="card">
+          <div class="card-header">
+            <h3>Quick actions</h3>
+          </div>
+          <div class="card-body">
+            <a href="pages/resume-analyzer.html" class="btn btn-outline">Analyze resume</a>
+            <a href="pages/skill-gap.html" class="btn btn-outline">Review skill gap</a>
+            <a href="pages/roadmap.html" class="btn btn-outline">View roadmap</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <h3>Notifications</h3>
+          </div>
+          <div class="card-body">
+            <p class="notification-item"><span class="dot dot-blue"></span>New resume tips ready</p>
+            <p class="notification-item"><span class="dot dot-green"></span>Validation completed</p>
+            <p class="notification-item"><span class="dot dot-yellow"></span>Roadmap milestone due soon</p>
+          </div>
+        </article>
+      </section>
+    </div>
+  </div>
+  <script src="assets/js/app.js" defer></script>
+  <script src="assets/js/api.js" defer></script>
+</body>
+</html>

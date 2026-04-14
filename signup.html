@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up | ACE AI</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <main class="auth-shell">
+    <section class="auth-card card">
+      <div class="auth-header">
+        <div>
+          <p class="eyebrow">Create your account</p>
+          <h1>Join ACE AI</h1>
+          <p class="text-muted">Start building an autonomous career plan with AI-backed insights.</p>
+        </div>
+      </div>
+
+      <form id="signup-form" class="auth-form" novalidate>
+        <div class="form-group">
+          <label for="signup-name">Full name</label>
+          <input id="signup-name" name="name" type="text" placeholder="Alex Morgan" minlength="2" required />
+        </div>
+
+        <div class="form-group">
+          <label for="signup-email">Email</label>
+          <input id="signup-email" name="email" type="email" placeholder="name@example.com" required />
+        </div>
+
+        <div class="form-group">
+          <label for="signup-password">Password</label>
+          <input id="signup-password" name="password" type="password" placeholder="Create a password" minlength="8" required />
+        </div>
+
+        <div class="form-group">
+          <label for="signup-confirm-password">Confirm password</label>
+          <input id="signup-confirm-password" name="confirmPassword" type="password" placeholder="Repeat your password" minlength="8" required />
+        </div>
+
+        <div class="alert" id="signup-alert" role="alert" aria-live="polite"></div>
+
+        <button type="submit" class="btn btn-primary btn-full">Create account</button>
+      </form>
+
+      <p class="auth-footer">
+        Already have an account? <a href="login.html" class="text-link">Sign in</a>
+      </p>
+    </section>
+  </main>
+
+  <script src="assets/js/app.js" defer></script>
+  <script src="assets/js/api.js" defer></script>
+  <script src="assets/js/auth.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resume Analyzer | ACE AI</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-mark">ACE</span>
+        <div>
+          <p class="brand-name">ACE AI</p>
+          <p class="brand-tag">Career Execution Agent</p>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="resume-analyzer.html" class="nav-link active">Resume Intelligence</a>
+        <a href="skill-gap.html" class="nav-link">Skill Gap Analyzer</a>
+        <a href="validation.html" class="nav-link">Validation</a>
+        <a href="roadmap.html" class="nav-link">Roadmap</a>
+        <a href="assessment.html" class="nav-link">Assessment</a>
+        <a href="suggestions.html" class="nav-link">Suggestions</a>
+      </nav>
+    </aside>
+
+    <div class="main-content">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="menu-toggle" aria-label="Open navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <h1 class="page-title">Resume Analyzer</h1>
+        </div>
+        <div class="topbar-actions">
+          <button class="btn btn-outline" id="reset-analyzer">Reset</button>
+          <button class="btn btn-primary" id="analyze-button">Analyze resume</button>
+        </div>
+      </header>
+
+      <section class="resume-hero card">
+        <div>
+          <p class="eyebrow">Resume intelligence</p>
+          <h2>Upload your resume, paste your content, or share a profile link to analyze fit.</h2>
+          <p class="text-muted">ACE AI evaluates your resume for recruiter readiness, skills alignment, and career strength.</p>
+        </div>
+      </section>
+
+      <section class="resume-grid grid grid-2">
+        <article class="card upload-pane">
+          <h3>Upload or paste your resume</h3>
+          <div class="upload-dropzone" id="upload-dropzone">
+            <span class="drop-icon">⇪</span>
+            <p>Drag &amp; drop PDF / DOCX here</p>
+            <p class="text-muted">or click to select a file</p>
+            <input type="file" id="resume-file" accept=".pdf,.docx" />
+          </div>
+
+          <div class="form-group">
+            <label for="resume-text">Paste resume text</label>
+            <textarea id="resume-text" rows="8" placeholder="Paste your resume content here"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="resume-link">GitHub / LinkedIn profile</label>
+            <input id="resume-link" type="url" placeholder="https://github.com/username or https://linkedin.com/in/username" />
+          </div>
+
+          <div class="hint-banner">
+            <p>Tip: file upload is prioritized. If you paste text, the app will analyze the text directly.</p>
+          </div>
+        </article>
+
+        <article class="card analysis-pane" id="analysis-pane">
+          <div class="analysis-loader" id="loading-state">
+            <div class="spinner"></div>
+            <p>Analyzing your resume...</p>
+          </div>
+
+          <div class="analysis-summary" id="analysis-results">
+            <div class="result-header">
+              <div class="progress-ring" data-score="0">
+                <svg viewBox="0 0 120 120">
+                  <circle class="ring-bg" cx="60" cy="60" r="52"></circle>
+                  <circle class="ring-progress" cx="60" cy="60" r="52"></circle>
+                </svg>
+                <div class="progress-value">
+                  <strong id="resume-score-value">0%</strong>
+                  <span>Score</span>
+                </div>
+              </div>
+              <div>
+                <p class="eyebrow">Analysis complete</p>
+                <h3 id="result-title">Resume performance</h3>
+                <p class="text-muted" id="result-summary">Review strengths, weaknesses, and missing skills.</p>
+              </div>
+            </div>
+
+            <div class="results-grid">
+              <div class="result-card result-card-blue">
+                <h4>Strengths</h4>
+                <ul id="strengths-list"><li class="empty-item">No strengths yet. Analyze a resume to see your core wins.</li></ul>
+              </div>
+              <div class="result-card result-card-red">
+                <h4>Weaknesses</h4>
+                <ul id="weaknesses-list"><li class="empty-item">No weaknesses yet. Results appear after analysis.</li></ul>
+              </div>
+              <div class="result-card result-card-yellow">
+                <h4>Missing skills</h4>
+                <ul id="missing-skills-list"><li class="empty-item">No missing skills yet. Start a report to identify gaps.</li></ul>
+              </div>
+            </div>
+          </div>
+
+       </article>
+      </section>
+    </div>
+  </div>
+
+  <script src="../assets/js/app.js" defer></script>
+  <script src="../assets/js/api.js" defer></script>
+  <script src="../assets/js/resumeAnalyzer.js" defer></script>
+</body>
+</html>
