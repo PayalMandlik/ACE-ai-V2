@@ -10,8 +10,8 @@ from jose import jwt
 from jose.exceptions import ExpiredSignatureError, JWTError
 from motor.motor_asyncio import AsyncIOMotorDatabase
 
-from core.config import settings
-from core.database import get_database
+from backend.core.config import settings
+from backend.core.database import get_database
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 

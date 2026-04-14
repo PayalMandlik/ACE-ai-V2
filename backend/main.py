@@ -24,14 +24,6 @@ from backend.routers.progress import router as progress_router
 from backend.routers.resume import router as resume_router
 from backend.routers.roadmap import router as roadmap_router
 from backend.routers.suggestions import router as suggestions_router
-from routers.assessment import router as assessment_router
-from routers.gap import router as gap_router
-from routers.github import router as github_router
-from routers.jobs import router as jobs_router
-from routers.progress import router as progress_router
-from routers.resume import router as resume_router
-from routers.roadmap import router as roadmap_router
-from routers.suggestions import router as suggestions_router
 
 logger = logging.getLogger("ace_ai")
 logging.basicConfig(
@@ -48,6 +40,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 app.state.rate_limit_store = {}
+
+@app.middleware("http")
+async def no_cache_middleware(request: Request, call_next):
+    response = await call_next(request)
+    if request.url.path.startswith("/assets") or request.url.path.startswith("/pages") or request.url.path in {"/", "/login", "/login.html", "/signup", "/signup.html"}:
+        response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
+        response.headers["Pragma"] = "no-cache"
+        response.headers["Expires"] = "0"
+    return response
 
 app.include_router(auth_router, prefix="/auth", tags=["auth"])
 app.include_router(resume_router, prefix="/resume", tags=["resume"])

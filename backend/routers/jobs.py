@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, Query, status
 from motor.motor_asyncio import AsyncIOMotorDatabase
 
-from core.database import get_database
-from core.errors import api_error
-from core.security import get_current_user
+from backend.core.database import get_database
+from backend.core.errors import api_error
+from backend.core.security import get_current_user
 from schemas.jobs import JobMatchResponse
 from services.job_service import match_jobs
 

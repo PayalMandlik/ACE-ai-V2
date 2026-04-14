@@ -1,7 +1,7 @@
 from typing import List
 
 from pydantic_settings import BaseSettings
-from pydantic_settings import Field
+from pydantic import Field
 
 class Settings(BaseSettings):
     mongodb_uri: str = Field("mongodb://localhost:27017", env="MONGODB_URI")
@@ -21,6 +21,7 @@ class Settings(BaseSettings):
         env_file = ".env"
         env_file_encoding = "utf-8"
         case_sensitive = False
+        extra = "ignore"
 
 
 settings = Settings()

@@ -1,11 +1,40 @@
 import asyncio
 import os
-from datetime import datetime
+from typing import Any, Dict, List
 from motor.motor_asyncio import AsyncIOMotorClient
 from dotenv import load_dotenv
 
+from backend.core.db_schema import COLLECTION_VALIDATORS, INDEX_DEFINITIONS
+
+
+async def _ensure_collection_schema(db, name: str, validator: Dict[str, Any]) -> None:
+    existing_collections = await db.list_collection_names()
+    if name not in existing_collections:
+        await db.create_collection(name, validator=validator, validationLevel="strict", validationAction="error")
+        print(f"Created collection '{name}' with strict schema validation.")
+        return
+
+    await db.command(
+        {
+            "collMod": name,
+            "validator": validator,
+            "validationLevel": "moderate",
+            "validationAction": "error",
+        }
+    )
+    print(f"Updated schema validation for existing collection '{name}' (moderate level).")
+
+
+async def _create_indexes(db) -> None:
+    for collection_name, indexes in INDEX_DEFINITIONS.items():
+        for index in indexes:
+            keys = index["keys"]
+            options = index.get("options", {})
+            await db[collection_name].create_index(keys, **options)
+            print(f"Ensured index on {collection_name}: {keys}, options={options}")
+
+
 async def main():
-    # Load env for URI
     load_dotenv()
     uri = os.getenv("MONGODB_URI", "mongodb://localhost:27017")
     db_name = os.getenv("MONGODB_DB", "ace_ai")
@@ -14,82 +43,22 @@ async def main():
     client = AsyncIOMotorClient(uri)
     db = client[db_name]
 
-    # 1. MIGRATION: Add default values to existing documents to prevent validation issues
-    print("Running migration to add missing fields to existing documents...")
-    now = datetime.utcnow()
-    
-    # We update documents that might be missing the required fields
-    result = await db.resumes.update_many(
-        {
-            "$or": [
-                {"user_id": {"$exists": False}},
-                {"resume_text": {"$exists": False}},
-                {"created_at": {"$exists": False}},
-                {"updated_at": {"$exists": False}},
-            ]
-        },
-        [
-            {
-                "$set": {
-                    "user_id": {"$ifNull": ["$user_id", "default_user"]},
-                    "resume_text": {"$ifNull": ["$resume_text", {"$ifNull": ["$raw_text", ""]}]},
-                    "created_at": {"$ifNull": ["$created_at", now]},
-                    "updated_at": {"$ifNull": ["$updated_at", now]}
-                }
-            }
-        ]
-    )
-    print(f"Migration complete! Modified {result.modified_count} existing documents.")
+    print("Ensuring schema validators and indexes for all production collections...")
+    for collection_name, validator in COLLECTION_VALIDATORS.items():
+        try:
+            _ensure_collection_schema(db, collection_name, validator)
+        except Exception as exc:
+            print(f"Failed to ensure schema for collection '{collection_name}': {exc}")
 
-    # 2. SCHEMA UPDATE: Apply schema validation using collMod with validationLevel: "moderate"
-    print("Applying schema validation (collMod)...")
-    
-    schema = {
-        "$jsonSchema": {
-            "bsonType": "object",
-            "required": ["user_id", "resume_text", "analysis", "created_at", "updated_at"],
-            "properties": {
-                "user_id": {
-                    "bsonType": "string",
-                    "description": "must be a string and is required"
-                },
-                "resume_text": {
-                    "bsonType": "string",
-                    "description": "must be a string and is required"
-                },
-                "analysis": {
-                    "bsonType": ["string", "object"],
-                    "description": "must be a string or object and is required"
-                },
-                "created_at": {
-                    "bsonType": "date",
-                    "description": "must be a date and is required"
-                },
-                "updated_at": {
-                    "bsonType": "date",
-                    "description": "must be a date and is required"
-                }
-            }
-        }
-    }
-
+    print("Ensuring indexes and TTL settings...")
     try:
-        await db.command({
-            "collMod": "resumes",
-            "validator": schema,
-            "validationLevel": "moderate",
-            "validationAction": "error"
-        })
-        print("Schema validation successfully updated!")
-    except Exception as e:
-        if "ns does not exist" in str(e):
-            print("Collection 'resumes' doesn't exist yet, creating it with the schema...")
-            await db.create_collection("resumes", validator=schema, validationLevel="moderate")
-            print("Collection created with schema validation!")
-        else:
-            print(f"Error updating schema: {e}")
+        _create_indexes(db)
+    except Exception as exc:
+        print(f"Failed to create indexes: {exc}")
 
+    print("MongoDB schema and index setup complete.")
     client.close()
+
 
 if __name__ == "__main__":
     asyncio.run(main())

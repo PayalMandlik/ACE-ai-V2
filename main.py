@@ -40,6 +40,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.middleware("http")
+async def no_cache_middleware(request, call_next):
+    response = await call_next(request)
+    if request.url.path.startswith("/assets") or request.url.path.startswith("/pages") or request.url.path in {"/", "/login", "/login.html", "/signup", "/signup.html"}:
+        response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
+        response.headers["Pragma"] = "no-cache"
+        response.headers["Expires"] = "0"
+    return response
+
 # API routers
 app.include_router(auth_router, prefix="/auth", tags=["auth"])
 app.include_router(resume_router, prefix="/resume", tags=["resume"])

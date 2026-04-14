@@ -8,7 +8,7 @@ from motor.motor_asyncio import AsyncIOMotorDatabase
 from pymongo import ReturnDocument
 from pymongo.errors import DuplicateKeyError
 
-from core.security import get_password_hash, verify_password
+from backend.core.security import get_password_hash, verify_password
 
 logger = logging.getLogger("ace_ai")
 USERS_COLLECTION = "users"

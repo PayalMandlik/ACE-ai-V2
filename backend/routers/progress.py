@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, Path, status
 from motor.motor_asyncio import AsyncIOMotorDatabase
 
-from core.database import get_database
-from core.errors import api_error
-from core.security import get_current_user
+from backend.core.database import get_database
+from backend.core.errors import api_error
+from backend.core.security import get_current_user
 from schemas.progress import ProgressResponse, ProgressUpdateRequest
 from services.progress_service import create_or_update_progress, get_progress
 
