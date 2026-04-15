@@ -2,9 +2,9 @@ from fastapi import APIRouter, Depends, status
 from fastapi.security import OAuth2PasswordRequestForm
 from motor.motor_asyncio import AsyncIOMotorDatabase
 
-from backend.core.database import get_database
-from backend.core.errors import api_error
-from backend.core.security import (
+from core.database import get_database
+from core.errors import api_error
+from core.security import (
     create_access_token,
     create_refresh_token,
     decode_refresh_token,

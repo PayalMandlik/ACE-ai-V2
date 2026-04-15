@@ -1,14 +1,14 @@
 import json
 from typing import Any, Dict, List, Optional
 
-from utils.ollama_client import call_ollama
+from utils.gemini_client import call_gemini
 
 # FIX: split prompt so the JSON example is concatenated, not passed through .format()
 _PROMPT_PREFIX = (
     "You are a career suggestion agent. Given resume text, gap analysis, and repository validation, return ONLY valid JSON.\n"
-    "Generate one JSON object with keys: summary, focus, advice, avoid. summary must be a string. focus, advice, and avoid must be arrays.\n"
+    "Generate one JSON object with keys: summary, suggestions, priority_actions. summary must be a string. suggestions and priority_actions must be arrays.\n"
     "Example output:\n"
-    '{"summary":"Actionable career suggestions based on your resume and project analysis.","focus":["Improve your LinkedIn profile","Build a clearer project roadmap"],"advice":["Add more technical metrics","Practice speaking about your projects"],"avoid":["Adding unrelated hobbies","Using ambiguous language in bullet points"]}\n'
+    '{"summary":"Actionable suggestions based on your resume and project analysis.","suggestions":["Improve your GitHub README","Add cloud certifications"],"priority_actions":["Update your resume","Practice interview questions"]}\n'
     "Return ONLY valid JSON. No explanation.\n"
 )
 
@@ -47,14 +47,14 @@ def _extract_json_from_response(response: Dict[str, Any]) -> Optional[Dict[str, 
     return None
 
 
-async def _call_ollama_with_retry(prompt: str) -> tuple[Optional[Dict[str, Any]], Dict[str, Any]]:
-    response = await call_ollama(prompt)
+async def _call_gemini_with_retry(prompt: str) -> tuple[Optional[Dict[str, Any]], Dict[str, Any]]:
+    response = await call_gemini(prompt)
     payload = _extract_json_from_response(response)
     if payload is not None:
         return payload, response
 
     retry_prompt = prompt + "\nFix your JSON and return ONLY valid JSON. No explanation."
-    response = await call_ollama(retry_prompt)
+    response = await call_gemini(retry_prompt)
     return _extract_json_from_response(response), response
 
 
@@ -78,11 +78,11 @@ async def generate_suggestions(
         + f"Gap analysis:\n{json.dumps(gap_analysis, indent=2) if gap_analysis else '{}'}\n"
         + f"Validation:\n{json.dumps(validation, indent=2) if validation else '{}'}\n"
     )
-    payload, response = await _call_ollama_with_retry(prompt)
+    payload, response = await _call_gemini_with_retry(prompt)
     if payload is None:
         return {
             "error": "parse_error",
-            "message": "Unable to parse AI response as JSON.",
+            "message": "Unable to parse Gemini response as JSON.",
             "raw_output": response,
         }
 

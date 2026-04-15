@@ -9,6 +9,6 @@ class GapAnalyzeRequest(BaseModel):
 
 
 class GapAnalyzeResponse(BaseModel):
-    matched_skills: List[str] = Field(default_factory=list)
-    missing_skills: List[str] = Field(default_factory=list)
-    priority_skills: List[str] = Field(default_factory=list)
+    matched: List[str] = Field(default_factory=list)
+    missing: List[str] = Field(default_factory=list)
+    priority: List[str] = Field(default_factory=list)

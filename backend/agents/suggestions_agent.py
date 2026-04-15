@@ -1,7 +1,7 @@
 import json
 from typing import Any, Dict, List, Optional
 
-from utils.ollama_client import call_ollama
+from utils.gemini_client import call_gemini
 
 _PROMPT_PREFIX = (
     "You are a career suggestion agent. Return ONLY valid JSON.\n"
@@ -54,12 +54,12 @@ def _extract_json_from_response(response: Dict[str, Any]) -> Optional[Dict[str, 
 
 
 async def _call_with_retry(prompt: str) -> tuple[Optional[Dict[str, Any]], Dict[str, Any]]:
-    response = await call_ollama(prompt)
+    response = await call_gemini(prompt)
     payload = _extract_json_from_response(response)
     if payload is not None:
         return payload, response
     retry_prompt = prompt + "\nYou must return ONLY raw valid JSON. No markdown, no explanation."
-    response = await call_ollama(retry_prompt)
+    response = await call_gemini(retry_prompt)
     return _extract_json_from_response(response), response
 
 

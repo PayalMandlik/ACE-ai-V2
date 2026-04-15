@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any, Dict
 
 from motor.motor_asyncio import AsyncIOMotorDatabase
 
@@ -12,14 +12,12 @@ async def create_roadmap(
     db: AsyncIOMotorDatabase,
     skill: str,
     duration: str,
-    user_id: Optional[str] = None,
 ) -> Dict[str, Any]:
     validation = await generate_roadmap(skill, duration)
     if validation.get("error"):
         return validation
 
     document: Dict[str, Any] = {
-        "user_id": user_id,
         "skill": skill.strip(),
         "duration": duration.strip(),
         "roadmap": validation.get("roadmap", []),

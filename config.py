@@ -1,26 +1,39 @@
-import secrets
-from typing import List
-from pydantic_settings import BaseSettings
-from pydantic import Field
+import os
+from pathlib import Path
 
 
-def _generate_secret() -> str:
-    return secrets.token_urlsafe(32)
+def _load_dotenv(path: Path) -> None:
+    if not path.is_file():
+        return
+    with path.open("r", encoding="utf-8") as fp:
+        for line in fp:
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
+            if "=" not in line:
+                continue
+            key, value = line.split("=", 1)
+            key = key.strip()
+            value = value.strip().strip('"').strip("'")
+            if key and key not in os.environ:
+                os.environ[key] = value
+
+# Load environment variables from .env in the project root.
+_load_dotenv(Path(__file__).resolve().parent / ".env")
 
 
-class Settings(BaseSettings):
-    # This handles the 'gemini_api_key' error you saw earlier
-    GEMINI_API_KEY: str = Field(..., env="GEMINI_API_KEY")
-    GITHUB_TOKEN: str | None = Field(None, env="GITHUB_TOKEN")
+def _bool_env(value: str | None, default: bool) -> bool:
+    if value is None:
+        return default
+    return value.strip().lower() in ("1", "true", "yes", "y")
 
-    mongodb_uri: str = Field("mongodb://localhost:27017", env="MONGODB_URI")
-    mongodb_db: str = Field("ace_ai", env="MONGODB_DB")
-    secret_key: str = Field(default_factory=_generate_secret, env="SECRET_KEY")
-    debug: bool = Field(True, env="DEBUG")
 
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
-        extra = "ignore"  # Stops the app from crashing if .env has extra keys
+class Settings:
+    mongodb_uri: str = os.environ.get("MONGODB_URI", "mongodb://localhost:27017")
+    mongodb_db: str = os.environ.get("MONGODB_DB", "ace_ai")
+    secret_key: str = os.environ.get("SECRET_KEY", "change-me")
+    debug: bool = _bool_env(os.environ.get("DEBUG"), True)
+    GEMINI_API_KEY: str = os.environ.get("GEMINI_API_KEY", "")
+
 
 settings = Settings()

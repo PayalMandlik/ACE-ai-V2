@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, status
 from motor.motor_asyncio import AsyncIOMotorDatabase
 
-from backend.core.database import get_database
-from backend.core.errors import api_error
-from backend.core.security import get_current_user
+from core.database import get_database
+from core.errors import api_error
+from core.security import get_current_user
 from schemas.github import GithubValidateRequest, GithubValidateResponse
 from services.github_service import validate_github_repo
 

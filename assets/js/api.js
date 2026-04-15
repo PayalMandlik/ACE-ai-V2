@@ -106,10 +106,19 @@ function analyzeGap(role, preferredSkills = []) {
   });
 }
 
-function validateGithub(repoUrl) {
+function validateGithub(ownerOrUrl, repo) {
+  let payload;
+  if (typeof ownerOrUrl === 'string' && repo) {
+    payload = { owner: ownerOrUrl, repo };
+  } else if (typeof ownerOrUrl === 'string') {
+    payload = { repoUrl: ownerOrUrl };
+  } else {
+    payload = ownerOrUrl;
+  }
+
   return apiRequest('/validate/github', {
     method: 'POST',
-    body: { repoUrl },
+    body: payload,
   });
 }
 

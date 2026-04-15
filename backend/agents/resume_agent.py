@@ -1,22 +1,18 @@
 import json
 from typing import Any, Dict, List, Optional
 
-from utils.ollama_client import call_ollama
+from utils.gemini_client import call_gemini
 
 # FIX: prefix + concatenation avoids KeyError from {score} etc in .format()
 _PROMPT_PREFIX = (
-    "TASK:\n"
-    "Analyze the resume and evaluate quality, skills, and gaps.\n\n"
-    "OUTPUT FORMAT:\n"
-    "{\n"
-    '  "score": number (0-100),\n'
-    '  "strengths": [string],\n'
-    '  "weaknesses": [string],\n'
-    '  "missing_skills": [string],\n'
-    '  "keywords": [string]\n'
-    "}\n\n"
-    "Return ONLY valid JSON. No markdown, no explanation, no code fences.\n\n"
-    "INPUT DATA:\n"
+    "You are a resume intelligence assistant. Analyze the resume text and return ONLY valid JSON "
+    "with these exact keys: score, strengths, weaknesses, missing_skills, keywords.\n"
+    "score must be a number 0-100. strengths, weaknesses, missing_skills, keywords must be arrays of strings.\n"
+    "Example output:\n"
+    '{"score":88.5,"strengths":["problem solving"],"weaknesses":["time management"],'
+    '"missing_skills":["cloud computing"],"keywords":["python","api"]}\n'
+    "Return ONLY valid JSON. No markdown, no explanation, no code fences.\n"
+    "Resume text:\n"
 )
 
 _cache: Dict[str, Dict[str, Any]] = {}
@@ -67,12 +63,12 @@ def _extract_json_from_response(response: Dict[str, Any]) -> Optional[Dict[str, 
 
 
 async def _call_with_retry(prompt: str) -> tuple[Optional[Dict[str, Any]], Dict[str, Any]]:
-    response = await call_ollama(prompt)
+    response = await call_gemini(prompt)
     payload = _extract_json_from_response(response)
     if payload is not None:
         return payload, response
     retry_prompt = prompt + "\nYou must return ONLY raw valid JSON. No markdown, no explanation."
-    response = await call_ollama(retry_prompt)
+    response = await call_gemini(retry_prompt)
     return _extract_json_from_response(response), response
 
 

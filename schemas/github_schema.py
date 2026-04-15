@@ -4,14 +4,13 @@ from pydantic import BaseModel, Field
 
 
 class GithubValidateRequest(BaseModel):
-    owner: Optional[str] = Field(None)
-    repo: Optional[str] = Field(None)
-    url: Optional[str] = Field(None)
+    owner: str = Field(..., min_length=1)
+    repo: str = Field(..., min_length=1)
 
 
 class GithubValidateResponse(BaseModel):
     summary: str
-    skills_detected: List[str] = Field(default_factory=list)
+    skills: List[str] = Field(default_factory=list)
     score: float = Field(..., ge=0, le=100)
     weaknesses: List[str] = Field(default_factory=list)
     raw_output: Optional[Any] = None

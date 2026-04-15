@@ -81,19 +81,7 @@ async function validateRepo() {
   setMessage('Validating repository and fetching project metadata...');
 
   try {
-    const response = await fetch(VALIDATE_API, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ owner: parsed.owner, repo: parsed.repo }),
-    });
-
-    if (!response.ok) {
-      const err = await response.json().catch(() => ({}));
-      throw new Error(err.detail || 'Validation request failed.');
-    }
-
-    // FIX: response field is `skills` not `skillsDetected`
-    const result = await response.json();
+    const result = await ACE_API.validateGithub({ owner: parsed.owner, repo: parsed.repo });
     updateScore(result.score || 0);
     setMessage(result.summary || 'No summary available for this repository.');
     renderChips(projectSkills, result.skills, 'skill-chip-matched');

@@ -2,7 +2,6 @@ from datetime import datetime, timedelta
 from typing import Optional
 
 import bcrypt
-from bson import ObjectId
 from jose import JWTError, jwt
 from motor.motor_asyncio import AsyncIOMotorDatabase
 
@@ -25,19 +24,6 @@ def verify_password(password: str, hashed_password: str) -> bool:
 
 async def get_user_by_email(db: AsyncIOMotorDatabase, email: str) -> Optional[dict]:
     return await db[USERS_COLLECTION].find_one({"email": email.lower()})
-
-
-async def get_user_by_id(db: AsyncIOMotorDatabase, user_id: str) -> Optional[dict]:
-    try:
-        object_id = ObjectId(user_id)
-    except Exception:
-        return None
-    user = await db[USERS_COLLECTION].find_one({"_id": object_id})
-    if not user:
-        return None
-    user["_id"] = str(user["_id"])
-    user.pop("password", None)
-    return user
 
 
 async def create_user(db: AsyncIOMotorDatabase, name: str, email: str, password: str) -> dict:
